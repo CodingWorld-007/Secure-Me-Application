@@ -7,7 +7,7 @@ A privacy-focused encrypted vault for storing passwords, bank details, crypto wa
 ![UI](https://img.shields.io/badge/UI-Jetpack%20Compose-purple)
 ![Security](https://img.shields.io/badge/Focus-Security-red)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
-
+![GitHub stars](https://img.shields.io/github/stars/CodingWorld-007/Secure-Me-Application)
 ---
 
 ### Download APK
