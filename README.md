@@ -52,13 +52,13 @@ MVVM architecture
 
 ## Screenshots
 
-| Lock Screen | Dashboard |
+| Lock Screen | Recovery Key |
 |-------------|-----------|
-| ![](screenshots/lock_screen.jpeg) | ![](screenshots/dashboard.jpeg) |
+| ![](screenshots/lock_screen.jpeg) | ![](screenshots/recovery_key.jpeg) |
 
-| Add Entry | Vault Details |
+| Dashboard | Add Entry |
 |-----------|---------------|
-| ![](screenshots/add_entry.jpeg) | ![](screenshots/vault_details.jpeg) |
+| ![](screenshots/dashboard.jpeg) | ![](screenshots/add_entry.jpeg) |
 
 ---
 
