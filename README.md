@@ -90,16 +90,6 @@ Encrypted Database (SQLCipher)
 
 ---
 
-## Installation
-
-Clone the repository:
-
-git clone https://github.com/YOUR_USERNAME/secureme.git
-
-Open the project in Android Studio and run the application on an Android device or emulator.
-
----
-
 ## Why This Project
 
 SecureMe started as a personal problem but evolved into a project focused on security and privacy.
