@@ -1,12 +1,28 @@
-# SecureMe 🔐
+# 🔐 SecureMe
 
-SecureMe is a privacy-first encrypted vault for storing sensitive credentials securely on Android.
+A privacy-focused encrypted vault for storing passwords, bank details, crypto wallets, and sensitive credentials securely on Android.
 
-The idea came from a personal frustration.
+![Platform](https://img.shields.io/badge/Platform-Android-green)
+![Language](https://img.shields.io/badge/Language-Kotlin-blue)
+![UI](https://img.shields.io/badge/UI-Jetpack%20Compose-purple)
+![Security](https://img.shields.io/badge/Focus-Security-red)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-I had almost 10 Gmail accounts for different purposes like testing, registrations, projects, and backups. Over time I realized that I had forgotten passwords for several of them.
+---
 
-Every time I needed access, I had to go through the entire **Forgot Password process** again.
+### Download APK
+
+[Download SecureMe](https://github.com/CodingWorld-007/Secure-Me-Application/releases/latest)
+
+---
+
+## The Problem
+
+I had nearly **10 Gmail accounts** for different purposes such as testing, projects, and registrations.
+
+Over time I realized that I had forgotten passwords for several of them.
+
+Every time I needed access, I had to go through the entire **Forgot Password process** again and again.
 
 Verification emails. Recovery codes. Security questions.
 
@@ -14,11 +30,9 @@ It became frustrating.
 
 Storing passwords in a notes app didn't feel safe either.
 
-Notes apps are not designed to store sensitive information like passwords, bank details or crypto keys.
+Notes apps are not designed to store sensitive data like passwords, bank details, or crypto keys.
 
-That is when the idea of **SecureMe** was born.
-
-SecureMe is a secure vault application where sensitive information can be stored safely and accessed quickly when needed.
+So I built **SecureMe** — a secure encrypted vault to store sensitive information safely.
 
 All data is stored **locally on the device and encrypted**.
 
@@ -108,7 +122,13 @@ Through building this project I explored:
 Aman Joshi
 
 LinkedIn  
-https://www.linkedin.com/in/YOUR_LINKEDIN_PROFILE
+https://www.linkedin.com/in/amanajjoshi
+
+---
+
+## License
+
+This project is licensed under the MIT License.
 
 ---
 
