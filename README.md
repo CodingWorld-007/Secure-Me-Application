@@ -54,11 +54,11 @@ MVVM architecture
 
 | Lock Screen | Dashboard |
 |-------------|-----------|
-| ![](screenshots/lock_screen.png) | ![](screenshots/dashboard.png) |
+| ![](screenshots/lock_screen.jpeg) | ![](screenshots/dashboard.jpeg) |
 
 | Add Entry | Vault Details |
 |-----------|---------------|
-| ![](screenshots/add_entry.png) | ![](screenshots/vault_details.png) |
+| ![](screenshots/add_entry.jpeg) | ![](screenshots/vault_details.jpeg) |
 
 ---
 
