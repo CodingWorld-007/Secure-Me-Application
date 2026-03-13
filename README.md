@@ -92,15 +92,7 @@ All encryption operations happen **locally on the device**.
 
 ## Architecture
 
-SecureMe follows MVVM architecture.
-
-UI (Jetpack Compose)  
-↓  
-ViewModel  
-↓  
-Repository  
-↓  
-Encrypted Database (SQLCipher)
+![Architecture](architecture/secureme_architecture.svg)
 
 ---
 
