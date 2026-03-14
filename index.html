@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureMe | Your Private Encrypted Vault</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <style>
+        :root { --primary: #00FF88; --bg: #0A0A0A; --card: #151515; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; text-align: center; }
+        nav { padding: 2rem; display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: auto; }
+        .hero { padding: 5rem 1rem; }
+        h1 { font-size: 3.5rem; margin-bottom: 0; }
+        .accent { color: var(--primary); }
+        .btn { background: var(--primary); color: black; padding: 1rem 2rem; border-radius: 12px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 2rem; transition: transform 0.2s; }
+        .btn:hover { transform: scale(1.05); }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin: 4rem auto; padding: 0 1rem; }
+        .feature-card { background: var(--card); padding: 2rem; border-radius: 20px; border: 1px solid #222; }
+        footer { padding: 4rem; color: #666; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div style="font-weight: bold; font-size: 1.5rem;">Secure<span class="accent">Me</span></div>
+        <a href="https://github.com/CodingWorld-007/Secure-Me-Application" class="accent" style="text-decoration: none;">GitHub</a>
+    </nav>
+
+    <section class="hero">
+        <h1>Titanium Armor for your <span class="accent">Passwords</span></h1>
+        <p style="color: #888; font-size: 1.2rem; margin-top: 1rem;">The magical, zero-knowledge vault for Android.</p>
+        <a href="https://github.com/CodingWorld-007/Secure-Me-Application/releases" class="btn">Download APK</a>
+    </section>
+
+    <div class="features">
+        <div class="feature-card">
+            <h3>🔒 AES-256 GCM</h3>
+            <p>Hardware-backed encryption that never leaves your device.</p>
+        </div>
+        <div class="feature-card">
+            <h3>📂 Local Only</h3>
+            <p>No clouds. No servers. No data tracking. Just pure privacy.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🛡️ Self-Destruct</h3>
+            <p>Clipboard auto-clears after 30 seconds for maximum safety.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Developed by Aman Joshi • Virtual Look Brand</p>
+        <p><a href="privacy-policy.html" style="color: var(--primary);">Privacy Policy</a> | <a href="https://www.linkedin.com/in/amanajjoshi" style="color: #888;">LinkedIn</a></p>
+    </footer>
+</body>
+</html>
