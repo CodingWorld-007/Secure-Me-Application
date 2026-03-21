@@ -1,54 +1,1423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecureMe | Your Private Encrypted Vault</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
-    <style>
-        :root { --primary: #00FF88; --bg: #0A0A0A; --card: #151515; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; text-align: center; }
-        nav { padding: 2rem; display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: auto; }
-        .hero { padding: 5rem 1rem; }
-        h1 { font-size: 3.5rem; margin-bottom: 0; }
-        .accent { color: var(--primary); }
-        .btn { background: var(--primary); color: black; padding: 1rem 2rem; border-radius: 12px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 2rem; transition: transform 0.2s; }
-        .btn:hover { transform: scale(1.05); }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin: 4rem auto; padding: 0 1rem; }
-        .feature-card { background: var(--card); padding: 2rem; border-radius: 20px; border: 1px solid #222; }
-        footer { padding: 4rem; color: #666; font-size: 0.9rem; }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SecureMe — Your Vault. No Cloud. No Compromise.</title>
+<meta name="description" content="Military-grade password vault for Android. AES-256 encrypted. No cloud. No ads. No account. Built by Virtual Look."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+
+:root {
+  --bg:      #050505;
+  --bg2:     #0a0a0a;
+  --bg3:     #0f0f0f;
+  --bg4:     #161616;
+  --g:       #00FF88;
+  --g2:      #00cc6a;
+  --g3:      #003322;
+  --g4:      rgba(0,255,136,0.06);
+  --g5:      rgba(0,255,136,0.12);
+  --t:       #F0F0F0;
+  --t2:      #707070;
+  --t3:      #303030;
+  --b:       rgba(0,255,136,0.12);
+  --b2:      rgba(255,255,255,0.06);
+  --b3:      rgba(255,255,255,0.03);
+  --red:     #FF4455;
+  --gold:    #FFD060;
+  --blue:    #60C8FF;
+  --purple:  #C090FF;
+  --f-disp:  'Bebas Neue', sans-serif;
+  --f-head:  'Syne', sans-serif;
+  --f-mono:  'DM Mono', monospace;
+  --r:       16px;
+  --r2:      24px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--bg);
+  color:var(--t);
+  font-family:var(--f-head);
+  overflow-x:hidden;
+  cursor:none;
+}
+::selection{background:var(--g);color:#000}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--g3);border-radius:2px}
+
+#cursor{
+  position:fixed;width:8px;height:8px;
+  background:var(--g);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s,width 0.2s,height 0.2s,background 0.2s;
+  mix-blend-mode:difference;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(0,255,136,0.4);
+  border-radius:50%;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:all 0.15s ease;
+}
+body:hover #cursor{transform:translate(-50%,-50%) scale(1)}
+a:hover~#cursor,button:hover~#cursor{width:20px;height:20px}
+
+#particles{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:0;opacity:0.6;
+}
+
+#scanline{
+  position:fixed;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent);
+  pointer-events:none;z-index:998;opacity:0;
+  animation:scan 6s linear infinite;
+}
+@keyframes scan{
+  0%{top:-2px;opacity:0}
+  3%{opacity:0.6}
+  97%{opacity:0.6}
+  100%{top:100vh;opacity:0}
+}
+
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:997;opacity:0.4;
+}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:0 2.5rem;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(5,5,5,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--b2);
+  transition:all 0.3s;
+}
+nav.scrolled{border-bottom-color:var(--b)}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;
+  font-family:var(--f-mono);font-size:15px;
+  letter-spacing:0.25em;color:var(--t);
+}
+.nav-logo .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--g);
+  box-shadow:0 0 8px var(--g);
+  animation:breathe 3s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:0.3}}
+.nav-logo em{color:var(--g);font-style:normal}
+.nav-center{
+  display:flex;gap:2.5rem;list-style:none;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+.nav-center a{
+  font-family:var(--f-mono);font-size:11px;
+  letter-spacing:0.2em;color:var(--t2);
+  text-decoration:none;transition:color 0.2s;
+  position:relative;
+}
+.nav-center a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:1px;background:var(--g);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.3s;
+}
+.nav-center a:hover{color:var(--g)}
+.nav-center a:hover::after{transform:scaleX(1)}
+.nav-cta{
+  background:var(--g);color:#000;
+  font-family:var(--f-mono);font-size:11px;
+  letter-spacing:0.15em;font-weight:500;
+  padding:9px 20px;border-radius:8px;
+  text-decoration:none;
+  transition:all 0.2s;
+  box-shadow:0 0 20px rgba(0,255,136,0.2);
+}
+.nav-cta:hover{background:var(--g2);transform:translateY(-1px);box-shadow:0 4px 24px rgba(0,255,136,0.4)}
+
+#hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:64px 2rem 0;
+  overflow:hidden;
+}
+.hero-bg-text{
+  position:absolute;
+  font-family:var(--f-disp);
+  font-size:clamp(120px,20vw,260px);
+  line-height:1;
+  letter-spacing:-0.02em;
+  color:rgba(0,255,136,0.03);
+  pointer-events:none;
+  top:50%;transform:translateY(-50%);
+  white-space:nowrap;
+  user-select:none;
+}
+.hero-content{
+  text-align:center;
+  position:relative;z-index:2;
+  max-width:900px;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--b);
+  background:var(--g4);
+  padding:7px 18px;border-radius:30px;
+  font-family:var(--f-mono);font-size:11px;
+  letter-spacing:0.3em;color:var(--g);
+  margin-bottom:2.5rem;
+  opacity:0;animation:riseIn 0.8s 0.2s ease both;
+}
+.hero-badge-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--g);
+  animation:breathe 2s ease-in-out infinite;
+}
+.hero-h1{
+  font-family:var(--f-disp);
+  font-size:clamp(72px,11vw,152px);
+  line-height:0.88;letter-spacing:0.02em;
+  margin-bottom:1.5rem;
+  opacity:0;animation:riseIn 0.9s 0.35s ease both;
+}
+.hero-h1 .l1{display:block;color:var(--t)}
+.hero-h1 .l2{
+  display:block;color:var(--g);
+  position:relative;
+}
+.hero-h1 .l2::after{
+  content:'█';
+  font-size:0.5em;vertical-align:middle;
+  animation:blink 0.9s step-end infinite;
+  color:var(--g);
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-desc{
+  font-family:var(--f-mono);font-size:13px;
+  color:var(--t2);letter-spacing:0.06em;
+  line-height:1.9;margin-bottom:3rem;
+  opacity:0;animation:riseIn 0.9s 0.5s ease both;
+}
+.hero-tags{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin-bottom:3rem;
+  opacity:0;animation:riseIn 0.9s 0.65s ease both;
+}
+.tag{
+  font-family:var(--f-mono);font-size:10px;
+  letter-spacing:0.15em;padding:6px 14px;
+  border-radius:20px;
+}
+.tag-g{border:1px solid var(--b);color:var(--g);background:var(--g4)}
+.tag-n{border:1px solid var(--b2);color:var(--t2)}
+.hero-btns{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:riseIn 0.9s 0.8s ease both;
+}
+.btn-g{
+  background:var(--g);color:#000;
+  font-family:var(--f-mono);font-size:12px;
+  letter-spacing:0.12em;font-weight:500;
+  padding:15px 34px;border-radius:12px;
+  text-decoration:none;display:flex;align-items:center;gap:10px;
+  transition:all 0.25s;
+  box-shadow:0 0 40px rgba(0,255,136,0.25);
+}
+.btn-g:hover{background:var(--g2);transform:translateY(-3px);box-shadow:0 8px 40px rgba(0,255,136,0.45)}
+.btn-o{
+  border:1px solid var(--b);color:var(--t);
+  font-family:var(--f-mono);font-size:12px;
+  letter-spacing:0.12em;
+  padding:15px 34px;border-radius:12px;
+  text-decoration:none;transition:all 0.25s;
+}
+.btn-o:hover{border-color:var(--g);color:var(--g);transform:translateY(-3px)}
+
+.hero-lock{
+  margin:0 auto 2rem auto;
+  width:160px;
+  height:160px;
+  position:relative;
+  opacity:0;
+  animation:riseIn 1s 0.1s ease both;
+}
+
+.hl-outer{
+  position:absolute;
+  inset:0;
+  border:1.5px solid rgba(0,255,136,0.25);
+  border-radius:50%;
+  animation:rotateCW 15s linear infinite;
+}
+
+.hl-outer::before{
+  content:'';
+  position:absolute;
+  top:-4px;
+  left:50%;
+  transform:translateX(-50%);
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--g);
+  box-shadow:0 0 12px var(--g);
+}
+
+.hl-mid{
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(0,255,136,0.12);
+  border-radius:50%;
+  animation:rotateCCW 10s linear infinite;
+}
+
+.hl-mid::after{
+  content:'';
+  position:absolute;
+  bottom:-3px;
+  left:50%;
+  transform:translateX(-50%);
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:rgba(0,255,136,0.5);
+}
+
+/* CENTER CIRCLE */
+.hl-inner{
+  position:absolute;
+  inset:28px;
+  background:var(--bg2);
+  border-radius:50%;
+  border:1px solid var(--b);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  box-shadow:0 0 25px rgba(0,255,136,0.08) inset;
+}
+
+/* YOUR PNG LOGO */
+.hl-logo{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  filter: drop-shadow(0 0 12px rgba(0,255,136,0.6));
+}
+
+/* ANIMATIONS */
+@keyframes rotateCW{to{transform:rotate(360deg)}}
+@keyframes rotateCCW{to{transform:rotate(-360deg)}}
+@keyframes riseIn{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:none}
+}
+
+/* ── STATS STRIP ────────────────────────────────────────────────── */
+.stats{
+  position:relative;z-index:1;
+  border-top:1px solid var(--b2);
+  border-bottom:1px solid var(--b2);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:var(--bg2);
+  overflow:hidden;
+}
+.stat{
+  padding:2.5rem 2rem;text-align:center;
+  border-right:1px solid var(--b2);
+  position:relative;
+}
+.stat:last-child{border-right:none}
+.stat-num{
+  font-family:var(--f-disp);font-size:52px;
+  color:var(--g);letter-spacing:0.02em;
+  line-height:1;margin-bottom:6px;
+  text-shadow:0 0 40px rgba(0,255,136,0.4);
+}
+.stat-label{
+  font-family:var(--f-mono);font-size:10px;
+  letter-spacing:0.25em;color:var(--t2);
+}
+
+.sec{
+  position:relative;z-index:1;
+  padding:8rem 2.5rem;
+  max-width:1200px;margin:0 auto;
+}
+.sec-tag{
+  font-family:var(--f-mono);font-size:10px;
+  letter-spacing:0.4em;color:var(--g);
+  margin-bottom:0.75rem;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-tag::before{
+  content:'';width:28px;height:1px;
+  background:var(--g);
+}
+.sec-h2{
+  font-family:var(--f-disp);
+  font-size:clamp(48px,6vw,88px);
+  line-height:0.92;letter-spacing:0.03em;
+  margin-bottom:1.25rem;
+}
+.sec-sub{
+  font-family:var(--f-mono);font-size:13px;
+  color:var(--t2);line-height:1.9;
+  max-width:580px;margin-bottom:5rem;
+}
+.divline{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--b2) 20%,var(--b2) 80%,transparent);
+  margin:0;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   HOW IT WORKS — NUMBERED STEPS
+════════════════════════════════════════════════════════════════════ */
+.steps-wrap{display:flex;flex-direction:column;gap:2px}
+.step{
+  background:var(--bg2);
+  border:1px solid var(--b2);
+  border-radius:var(--r2);
+  overflow:hidden;
+  transition:border-color 0.3s,background 0.3s;
+}
+.step:hover{border-color:var(--b);background:var(--bg3)}
+.step-top{
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  align-items:center;
+  padding:24px 28px;
+  gap:20px;
+  cursor:pointer;
+}
+.step-n{
+  font-family:var(--f-disp);font-size:56px;
+  color:var(--g3);letter-spacing:0.02em;
+  line-height:1;transition:color 0.3s;
+}
+.step:hover .step-n{color:var(--g4)}
+.step-ttl{
+  font-family:var(--f-head);font-size:20px;
+  font-weight:600;letter-spacing:-0.01em;
+}
+.step-ico{
+  width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+  background:var(--g4);border:1px solid var(--b);
+}
+.step-body{
+  padding:0 28px 28px;
+  padding-left:128px;
+  color:var(--t2);font-family:var(--f-mono);
+  font-size:13px;line-height:1.85;
+}
+.step-body strong{color:var(--t);font-weight:400}
+.step-code{
+  margin-top:14px;
+  background:var(--bg);border:1px solid var(--b2);
+  border-left:3px solid var(--g);
+  border-radius:8px;padding:14px 18px;
+  font-family:var(--f-mono);font-size:11px;
+  color:var(--g);letter-spacing:0.05em;
+  line-height:1.7;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   FEATURES — BENTO GRID
+════════════════════════════════════════════════════════════════════ */
+.bento{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:auto;
+  gap:12px;
+}
+.bcard{
+  background:var(--bg2);border:1px solid var(--b2);
+  border-radius:var(--r2);padding:28px;
+  position:relative;overflow:hidden;
+  transition:all 0.35s;
+}
+.bcard::before{
+  content:'';position:absolute;
+  top:0;left:0;width:2px;height:100%;
+  background:var(--card-c,var(--g));
+  opacity:0.5;
+  transition:opacity 0.3s,width 0.3s;
+}
+.bcard:hover{
+  border-color:rgba(0,255,136,0.2);
+  transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.bcard:hover::before{opacity:1;width:3px}
+.bc-1{grid-column:span 8}
+.bc-2{grid-column:span 4}
+.bc-3{grid-column:span 4}
+.bc-4{grid-column:span 4}
+.bc-5{grid-column:span 4}
+.bc-6{grid-column:span 6}
+.bc-7{grid-column:span 6}
+.bc-8{grid-column:span 12}
+.bcard-ico{
+  width:48px;height:48px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:20px;
+  background:var(--g4);border:1px solid var(--b);
+}
+.bcard-ttl{
+  font-family:var(--f-head);font-size:19px;
+  font-weight:700;margin-bottom:10px;
+  letter-spacing:-0.01em;
+}
+.bcard-desc{
+  font-family:var(--f-mono);font-size:12px;
+  color:var(--t2);line-height:1.8;
+}
+.bcard-big .bcard-ttl{font-size:28px}
+.bcard-big .bcard-desc{font-size:13px;max-width:480px}
+.bcard-tag{
+  display:inline-block;margin-top:14px;
+  font-family:var(--f-mono);font-size:9px;
+  letter-spacing:0.2em;padding:4px 12px;
+  border-radius:20px;
+  background:var(--g4);color:var(--g);
+  border:1px solid var(--b);
+}
+
+/* ── NO LIST ────────────────────────────────────────────────────── */
+.no-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:10px;margin-top:2.5rem;
+}
+.no-item{
+  display:flex;align-items:center;gap:10px;
+  padding:13px 16px;border-radius:10px;
+  background:rgba(255,68,85,0.04);
+  border:1px solid rgba(255,68,85,0.12);
+  font-family:var(--f-mono);font-size:11px;
+  color:var(--t2);letter-spacing:0.05em;
+}
+.no-x{color:var(--red);font-size:13px}
+
+/* ════════════════════════════════════════════════════════════════════
+   SECURITY ARCHITECTURE
+════════════════════════════════════════════════════════════════════ */
+.arch-wrap{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:3rem;align-items:start;
+}
+.chain-box{
+  background:var(--bg2);border:1px solid var(--b);
+  border-radius:var(--r2);padding:32px;
+}
+.chain-head{
+  font-family:var(--f-mono);font-size:10px;
+  letter-spacing:0.35em;color:var(--g);
+  margin-bottom:24px;padding-bottom:16px;
+  border-bottom:1px solid var(--b2);
+}
+.chain-item{
+  display:flex;gap:14px;padding:14px 0;
+  border-bottom:1px solid var(--b2);
+  align-items:flex-start;
+}
+.chain-item:last-child{border-bottom:none}
+.chain-ico{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--g4);border:1px solid var(--b);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;margin-top:2px;
+}
+.chain-nm{
+  font-family:var(--f-head);font-size:14px;
+  font-weight:600;margin-bottom:4px;
+}
+.chain-desc{
+  font-family:var(--f-mono);font-size:11px;
+  color:var(--t2);line-height:1.7;
+}
+.chain-arrow{
+  padding:4px 0 4px 50px;
+  font-family:var(--f-mono);font-size:11px;
+  color:var(--g);opacity:0.35;
+}
+.format-box{
+  background:var(--bg2);border:1px solid var(--b2);
+  border-radius:var(--r2);padding:32px;
+}
+.format-head{
+  font-family:var(--f-mono);font-size:10px;
+  letter-spacing:0.35em;color:var(--g);
+  margin-bottom:24px;padding-bottom:16px;
+  border-bottom:1px solid var(--b2);
+}
+.format-row{
+  display:grid;grid-template-columns:60px 80px 1fr;
+  gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--b2);
+  align-items:start;
+}
+.format-row:last-child{border-bottom:none}
+.fr-off{font-family:var(--f-mono);font-size:11px;color:var(--g)}
+.fr-sz{font-family:var(--f-mono);font-size:11px;color:var(--t2)}
+.fr-desc{font-family:var(--f-mono);font-size:11px;color:var(--t)}
+.fr-sub{font-family:var(--f-mono);font-size:10px;color:var(--t2);margin-top:2px}
+
+/* ════════════════════════════════════════════════════════════════════
+   PRIVACY POLICY
+════════════════════════════════════════════════════════════════════ */
+.pp-grid{display:flex;flex-direction:column;gap:12px}
+.pp-card{
+  background:var(--bg2);border:1px solid var(--b2);
+  border-radius:var(--r2);padding:32px;
+  transition:border-color 0.3s;
+}
+.pp-card:hover{border-color:var(--b)}
+.pp-head{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:18px;
+}
+.pp-num{
+  font-family:var(--f-mono);font-size:10px;
+  letter-spacing:0.25em;color:var(--g);
+  background:var(--g4);border:1px solid var(--b);
+  padding:4px 10px;border-radius:6px;
+  flex-shrink:0;
+}
+.pp-ttl{font-family:var(--f-head);font-size:19px;font-weight:700}
+.pp-body{
+  font-family:var(--f-mono);font-size:12px;
+  color:var(--t2);line-height:1.9;
+}
+.pp-body strong{color:var(--t);font-weight:400}
+.pp-body ul{padding-left:1.4rem;margin-top:8px}
+.pp-body li{margin-bottom:6px}
+.pp-body p{margin-bottom:10px}
+.pp-highlight{
+  margin-top:16px;padding:16px 20px;
+  background:var(--g4);border:1px solid var(--b);
+  border-radius:10px;
+  font-family:var(--f-mono);font-size:12px;
+  color:var(--g);line-height:1.7;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════════════════════════ */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--b2);
+  padding:5rem 2.5rem 3rem;
+  background:var(--bg2);
+}
+.footer-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto;
+  gap:4rem;align-items:start;
+  margin-bottom:4rem;
+}
+.footer-brand-name{
+  font-family:var(--f-disp);font-size:56px;
+  letter-spacing:0.05em;line-height:1;
+  margin-bottom:12px;
+}
+.footer-brand-name em{color:var(--g);font-style:normal}
+.footer-tagline{
+  font-family:var(--f-mono);font-size:11px;
+  letter-spacing:0.2em;color:var(--t2);
+  margin-bottom:2rem;
+}
+.footer-dl{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--g);color:#000;
+  font-family:var(--f-mono);font-size:11px;
+  letter-spacing:0.12em;font-weight:500;
+  padding:11px 22px;border-radius:10px;
+  text-decoration:none;
+  transition:all 0.2s;
+}
+.footer-dl:hover{background:var(--g2);transform:translateY(-2px)}
+.footer-links-col h4{
+  font-family:var(--f-mono);font-size:10px;
+  letter-spacing:0.3em;color:var(--t3);
+  margin-bottom:16px;
+}
+.footer-links-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links-col a{
+  font-family:var(--f-mono);font-size:12px;
+  color:var(--t2);text-decoration:none;
+  transition:color 0.2s;letter-spacing:0.05em;
+}
+.footer-links-col a:hover{color:var(--g)}
+.footer-bottom{
+  max-width:1200px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--b2);padding-top:2rem;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-copy{
+  font-family:var(--f-mono);font-size:11px;
+  color:var(--t3);letter-spacing:0.1em;
+}
+.footer-made{
+  font-family:var(--f-mono);font-size:11px;
+  color:var(--t3);letter-spacing:0.1em;
+}
+.footer-made em{color:var(--g);font-style:normal}
+
+/* ════════════════════════════════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════════════════════════════════ */
+.rv{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:0.05s}
+.rv-d2{transition-delay:0.1s}
+.rv-d3{transition-delay:0.15s}
+.rv-d4{transition-delay:0.2s}
+.rv-d5{transition-delay:0.25s}
+.rv-d6{transition-delay:0.3s}
+
+/* ════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  .nav-center{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .arch-wrap{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .bento{grid-template-columns:1fr}
+  .bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6,.bc-7,.bc-8{grid-column:span 1}
+  .step-body{padding-left:28px}
+  .sec{padding:5rem 1.5rem}
+  body{cursor:auto}
+  #cursor,#cursor-ring{display:none}
+}
+@media(max-width:480px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat-num{font-size:36px}
+  nav{padding:0 1.2rem}
+}
+</style>
 </head>
 <body>
-    <nav>
-        <div style="font-weight: bold; font-size: 1.5rem;">Secure<span class="accent">Me</span></div>
-        <a href="https://github.com/CodingWorld-007/Secure-Me-Application" class="accent" style="text-decoration: none;">GitHub</a>
-    </nav>
 
-    <section class="hero">
-        <h1>Titanium Armor for your <span class="accent">Passwords</span></h1>
-        <p style="color: #888; font-size: 1.2rem; margin-top: 1rem;">The magical, zero-knowledge vault for Android.</p>
-        <a href="https://github.com/CodingWorld-007/Secure-Me-Application/releases" class="btn">Download APK</a>
-    </section>
+<!-- Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<!-- Scan line -->
+<div id="scanline"></div>
+<!-- Particle field -->
+<canvas id="particles"></canvas>
 
-    <div class="features">
-        <div class="feature-card">
-            <h3>🔒 AES-256 GCM</h3>
-            <p>Hardware-backed encryption that never leaves your device.</p>
-        </div>
-        <div class="feature-card">
-            <h3>📂 Local Only</h3>
-            <p>No clouds. No servers. No data tracking. Just pure privacy.</p>
-        </div>
-        <div class="feature-card">
-            <h3>🛡️ Self-Destruct</h3>
-            <p>Clipboard auto-clears after 30 seconds for maximum safety.</p>
-        </div>
+<!-- ════════════════════════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <div class="dot"></div>
+    SECURE<em>ME</em>
+  </a>
+  <ul class="nav-center">
+    <li><a href="#how">HOW TO USE</a></li>
+    <li><a href="#features">FEATURES</a></li>
+    <li><a href="#security">SECURITY</a></li>
+    <li><a href="#privacy">PRIVACY</a></li>
+  </ul>
+  <a href="#" class="nav-cta">↓ DOWNLOAD</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg-text">SECURE</div>
+
+  <div class="hero-content">
+
+    <!-- LOGO + RINGS -->
+    <div class="hero-lock">
+      <div class="hl-outer"></div>
+      <div class="hl-mid"></div>
+      <div class="hl-inner">
+        <img src="default_logo.png" class="hl-logo" alt="SecureMe Logo">
+      </div>
     </div>
 
-    <footer>
-        <p>Developed by Aman Joshi • Virtual Look Brand</p>
-        <p><a href="privacy-policy.html" style="color: var(--primary);">Privacy Policy</a> | <a href="https://www.linkedin.com/in/amanajjoshi" style="color: #888;">LinkedIn</a></p>
-    </footer>
+    <!-- BADGE -->
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      MILITARY-GRADE ENCRYPTION · ANDROID · OFFLINE-ONLY
+    </div>
+
+    <!-- TITLE -->
+    <h1 class="hero-h1">
+      <span class="l1">YOUR VAULT.</span>
+      <span class="l2">NO CLOUD</span>
+    </h1>
+
+    <!-- DESCRIPTION -->
+    <p class="hero-desc">
+      AES-256-GCM · Android Keystore TEE · SQLCipher Database<br/>
+      Zero internet permission · No account · No ads · No compromise
+    </p>
+
+    <!-- TAGS -->
+    <div class="hero-tags">
+      <div class="tag tag-g">✓ AES-256-GCM</div>
+      <div class="tag tag-g">✓ Hardware Keystore</div>
+      <div class="tag tag-g">✓ SQLCipher</div>
+      <div class="tag tag-g">✓ Biometric Auth</div>
+      <div class="tag tag-n">✗ No Cloud</div>
+      <div class="tag tag-n">✗ No Ads</div>
+      <div class="tag tag-n">✗ No Internet</div>
+      <div class="tag tag-n">✗ No Account</div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="hero-btns">
+      <a href="#" class="btn-g">GET ON PLAY STORE</a>
+      <a href="#how" class="btn-o">HOW IT WORKS ↓</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     STATS STRIP
+════════════════════════════════════════════════════════════════════ -->
+<div class="stats">
+  <div class="stat rv">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">DATA STORED ON YOUR DEVICE</div>
+  </div>
+  <div class="stat rv rv-d1">
+    <div class="stat-num">0</div>
+    <div class="stat-label">DATA SENT TO SERVERS</div>
+  </div>
+  <div class="stat rv rv-d2">
+    <div class="stat-num">0</div>
+    <div class="stat-label">ADS OR TRACKING</div>
+  </div>
+  <div class="stat rv rv-d3">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">DATA PROTECTION</div>
+  </div>
+</div>
+
+<div class="divline"></div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     HOW IT WORKS
+════════════════════════════════════════════════════════════════════ -->
+<div class="sec" id="how">
+  <div class="rv">
+    <div class="sec-tag">PROTOCOL</div>
+    <h2 class="sec-h2">HOW TO<br/>USE IT</h2>
+    <p class="sec-sub">Your data stays only on your device. Here’s how SecureMe protects your data from the moment you open the app.</p>
+  </div>
+
+  <div class="steps-wrap">
+    <div class="step rv rv-d1">
+      <div class="step-top">
+        <div class="step-n">01</div>
+        <div class="step-ttl">First Launch — Security Setup</div>
+        <div class="step-ico">🔐</div>
+      </div>
+      <div class="step-body">
+        When you open SecureMe for the first time, the app sets up your personal security system. 
+        Your fingerprint or phone lock becomes the key to your vault. 
+        Only you can unlock it. No one else, not even the app developers.
+      </div>
+    </div>
+
+    <div class="step rv rv-d2">
+      <div class="step-top">
+        <div class="step-n">02</div>
+        <div class="step-ttl">Daily Use — Unlock Vault</div>
+        <div class="step-ico">🗄️</div>
+      </div>
+      <div class="step-body">
+        Just use your fingerprint to unlock the vault. 
+        Once you close the app or leave it for some time, it automatically locks again 
+        so no one can access your data without you.
+      </div>
+    </div>
+
+    <div class="step rv rv-d3">
+      <div class="step-top">
+        <div class="step-n">03</div>
+        <div class="step-ttl">Saving — Your Data</div>
+        <div class="step-ico">✍️</div>
+      </div>
+      <div class="step-body">
+        Everything you save — passwords, notes, documents — is stored in a locked format 
+        that cannot be read by any other app or person. 
+        Only your SecureMe vault can open it.
+      </div>
+    </div>
+
+    <div class="step rv rv-d4">
+      <div class="step-top">
+        <div class="step-n">04</div>
+        <div class="step-ttl">Double Lock — Extra Security</div>
+        <div class="step-ico">🛡️</div>
+      </div>
+      <div class="step-body">
+        You can add an extra password to any important entry. 
+        So even if someone unlocks your vault, they still cannot open that entry 
+        without the second password.
+      </div>
+    </div>
+
+    <div class="step rv rv-d5">
+      <div class="step-top">
+        <div class="step-n">05</div>
+        <div class="step-ttl">Backup — Your Control</div>
+        <div class="step-ico">📦</div>
+      </div>
+      <div class="step-body">
+        You can create a backup file and store it anywhere you want — 
+        Google Drive, WhatsApp, Email, Telegram, or a pen drive. 
+        The backup file is fully protected and cannot be opened without your permission.
+      </div>
+    </div>
+
+    <div class="step rv rv-d6">
+      <div class="step-top">
+        <div class="step-n">06</div>
+        <div class="step-ttl">Import — Restore Anywhere</div>
+        <div class="step-ico">📲</div>
+      </div>
+      <div class="step-body">
+        If you change your phone, just open the backup file with SecureMe 
+        and your vault will be restored in seconds. 
+        No account, no server, no data tracking — everything stays in your control.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divline"></div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     FEATURES — BENTO
+════════════════════════════════════════════════════════════════════ -->
+<div class="sec" id="features">
+  <div class="rv">
+    <div class="sec-tag">CAPABILITIES</div>
+    <h2 class="sec-h2">EVERY<br/>FEATURE.</h2>
+    <p class="sec-sub">Every feature in SecureMe exists for one reason — to keep your data safe and under your control.</p>
+  </div>
+
+  <div class="bento">
+    <div class="bcard bcard-big bc-1 rv" style="--card-c:#00FF88">
+      <div class="bcard-ico">🔐</div>
+      <div class="bcard-ttl">Fingerprint Unlock</div>
+      <div class="bcard-desc">
+        Unlock your vault using your fingerprint or phone lock. 
+        SecureMe automatically locks when you leave the app, so no one else can access your data.
+      </div>
+      <div class="bcard-tag">BIOMETRIC SECURITY</div>
+    </div>
+
+    <div class="bcard bc-2 rv rv-d1" style="--card-c:#60C8FF">
+      <div class="bcard-ico">🗄️</div>
+      <div class="bcard-ttl">Secure Vault</div>
+      <div class="bcard-desc">
+        Everything you store in SecureMe is protected and cannot be read without unlocking your vault.
+      </div>
+      <div class="bcard-tag">SECURE STORAGE</div>
+    </div>
+
+    <div class="bcard bc-3 rv rv-d1" style="--card-c:#FFD060">
+      <div class="bcard-ico">🛡️</div>
+      <div class="bcard-ttl">Double Lock</div>
+      <div class="bcard-desc">
+        You can add an extra password to any important item for additional protection.
+      </div>
+      <div class="bcard-tag">EXTRA PROTECTION</div>
+    </div>
+
+    <div class="bcard bc-4 rv rv-d2" style="--card-c:#C090FF">
+      <div class="bcard-ico">📵</div>
+      <div class="bcard-ttl">Screenshot Block</div>
+      <div class="bcard-desc">
+        Screenshots and screen recordings are blocked inside the app to prevent others from capturing your data.
+      </div>
+      <div class="bcard-tag">SCREEN PROTECTION</div>
+    </div>
+
+    <div class="bcard bc-5 rv rv-d2" style="--card-c:#FF4455">
+      <div class="bcard-ico">🔑</div>
+      <div class="bcard-ttl">Recovery Key</div>
+      <div class="bcard-desc">
+        You get a recovery key so you can restore your vault if you forget your password or change your device.
+      </div>
+      <div class="bcard-tag">ACCOUNT RECOVERY</div>
+    </div>
+
+    <div class="bcard bc-6 rv rv-d3" style="--card-c:#00FF88">
+      <div class="bcard-ico">📦</div>
+      <div class="bcard-ttl">Backup & Restore</div>
+      <div class="bcard-desc">
+        You can create a backup and move your vault to another device anytime.
+        Store the backup file wherever you want — you are in control.
+      </div>
+      <div class="bcard-tag">SAFE BACKUP</div>
+    </div>
+
+    <div class="bcard bc-7 rv rv-d3" style="--card-c:#60C8FF">
+      <div class="bcard-ico">👁️</div>
+      <div class="bcard-ttl">Smart Dashboard</div>
+      <div class="bcard-desc">
+        Easily manage and find your accounts, passwords, and documents with search and categories.
+      </div>
+      <div class="bcard-tag">EASY TO USE</div>
+    </div>
+
+    <div class="bcard bc-8 rv rv-d4" style="--card-c:#FFD060">
+      <div class="bcard-ico" style="font-size:16px">⏱️📋🔄</div>
+      <div class="bcard-ttl">Auto Lock · Clipboard Clear · Updates</div>
+      <div class="bcard-desc">
+        SecureMe automatically locks after some time, clears copied data for safety,
+        and keeps the app updated to maintain security and performance.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem" class="rv">
+    <div class="sec-tag" style="margin-bottom:1.5rem">WHAT WE DON'T DO</div>
+    <div class="no-grid">
+      <div class="no-item"><span class="no-x">✗</span> No cloud storage</div>
+      <div class="no-item"><span class="no-x">✗</span> No account required</div>
+      <div class="no-item"><span class="no-x">✗</span> No ads or tracking</div>
+      <div class="no-item"><span class="no-x">✗</span> No subscription fees</div>
+      <div class="no-item"><span class="no-x">✗</span> Works without internet</div>
+      <div class="no-item"><span class="no-x">✗</span> No data collection</div>
+    </div>
+  </div>
+</div>
+
+<div class="divline"></div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SECURITY
+════════════════════════════════════════════════════════════════════ -->
+<div class="sec" id="security">
+  <div class="rv">
+    <div class="sec-tag">SECURITY</div>
+    <h2 class="sec-h2">BUILT TO<br/>BE TRUSTED</h2>
+    <p class="sec-sub">
+      SecureMe is built on one simple idea — your data should belong only to you.
+      Everything in the app is designed to keep your personal data private, safe, and in your control.
+    </p>
+  </div>
+
+  <div class="bento" style="margin-bottom:3rem">
+    <div class="bcard bcard-big bc-1 rv" style="--card-c:#00FF88">
+      <div class="bcard-ico">🔒</div>
+      <div class="bcard-ttl">Your Phone Protects Your Vault</div>
+      <div class="bcard-desc">
+        SecureMe uses your phone’s built-in security to protect your vault.
+        The same level of protection used by banking apps helps keep your data safe and locked.
+        Only you can unlock and access your vault.
+      </div>
+      <div class="bcard-tag">DEVICE-LEVEL SECURITY</div>
+    </div>
+
+    <div class="bcard bc-2 rv rv-d1" style="--card-c:#60C8FF">
+      <div class="bcard-ico">🗄️</div>
+      <div class="bcard-ttl">Trusted Protection</div>
+      <div class="bcard-desc">
+        Your vault is protected using trusted security technology used by secure messaging
+        and financial apps around the world to keep data safe and private.
+      </div>
+      <div class="bcard-tag">TRUSTED SECURITY</div>
+    </div>
+
+    <div class="bcard bc-3 rv rv-d2" style="--card-c:#FFD060">
+      <div class="bcard-ico">🛡️</div>
+      <div class="bcard-ttl">Extra Layers of Safety</div>
+      <div class="bcard-desc">
+        Your data is protected by multiple layers of security.
+        Even if someone tries to break in, your data is still protected behind another layer.
+      </div>
+      <div class="bcard-tag">MULTI-LAYER SECURITY</div>
+    </div>
+
+    <div class="bcard bc-4 rv rv-d2" style="--card-c:#C090FF">
+      <div class="bcard-ico">🌐</div>
+      <div class="bcard-ttl">Works Without Internet</div>
+      <div class="bcard-desc">
+        SecureMe works completely offline.
+        Your data never goes to the internet, never to a server, and never leaves your device
+        unless you choose to move it.
+      </div>
+      <div class="bcard-tag">OFFLINE APP</div>
+    </div>
+
+    <div class="bcard bc-5 rv rv-d3" style="--card-c:#FF4455">
+      <div class="bcard-ico">⏱️</div>
+      <div class="bcard-ttl">Auto Lock Protection</div>
+      <div class="bcard-desc">
+        When you close the app or leave it for some time, SecureMe automatically locks itself
+        so no one else can access your data without your permission.
+      </div>
+      <div class="bcard-tag">AUTO LOCK</div>
+    </div>
+
+    <div class="bcard bc-6 rv rv-d3" style="--card-c:#00FF88">
+      <div class="bcard-ico">📦</div>
+      <div class="bcard-ttl">Secure Backup Files</div>
+      <div class="bcard-desc">
+        Your backup files are fully protected.
+        Even if someone gets the backup file, they cannot open it without your permission.
+        You are always in control of your data.
+      </div>
+      <div class="bcard-tag">PROTECTED BACKUPS</div>
+    </div>
+
+    <div class="bcard bc-7 rv rv-d4" style="--card-c:#60C8FF">
+      <div class="bcard-ico">🔑</div>
+      <div class="bcard-ttl">Strong Password Protection</div>
+      <div class="bcard-desc">
+        If you add a password, SecureMe makes it very hard for anyone to guess or break it,
+        helping keep your important data safe.
+      </div>
+      <div class="bcard-tag">STRONG PASSWORD SECURITY</div>
+    </div>
+
+    <div class="bcard bc-8 rv rv-d5" style="--card-c:#FFD060;background:var(--g4);border-color:var(--b)">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <div class="bcard-ttl" style="color:var(--g);margin-bottom:8px">Our Security Promise</div>
+          <div class="bcard-desc" style="color:var(--t2)">
+            We designed SecureMe so that no one else can see your data — not hackers, not companies,
+            not even us. There is no account, no cloud storage, and no tracking.
+            Your data stays with you, under your control, always.
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:200px">
+          <div style="display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;color:var(--g)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0"></span>
+            Advanced Encryption
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;color:var(--g)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0"></span>
+            Device Security
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;color:var(--g)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0"></span>
+            Fingerprint Unlock
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;color:var(--g)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0"></span>
+            No Internet Access
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;color:var(--g)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0"></span>
+            Screenshot Protection
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divline"></div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     PRIVACY POLICY
+════════════════════════════════════════════════════════════════════ -->
+<div class="sec" id="privacy">
+  <div class="rv">
+    <div class="sec-tag">LEGAL</div>
+    <h2 class="sec-h2">PRIVACY<br/>POLICY</h2>
+    <p class="sec-sub">Last updated: March 2026. This policy applies to the SecureMe Android application published by Virtual Look.</p>
+  </div>
+
+  <div class="pp-grid">
+    <div class="pp-card rv">
+      <div class="pp-head">
+        <div class="pp-num">01 //</div>
+        <div class="pp-ttl">Data Collection</div>
+      </div>
+      <div class="pp-body">
+        <p>SecureMe does not collect, store, or send any of your personal data anywhere.</p>
+        <p>Everything you save — passwords, notes, documents, and other private information — stays only on your device.</p>
+        <div class="pp-highlight">We do not collect your data. We do not see your data. Your data stays with you.</div>
+      </div>
+    </div>
+
+    <div class="pp-card rv rv-d1">
+      <div class="pp-head">
+        <div class="pp-num">02 //</div>
+        <div class="pp-ttl">Internet Access</div>
+      </div>
+      <div class="pp-body">
+        <p>SecureMe works without internet access.</p>
+        <p>The app cannot send your data anywhere. It works completely offline on your device.</p>
+      </div>
+    </div>
+
+    <div class="pp-card rv rv-d2">
+      <div class="pp-head">
+        <div class="pp-num">03 //</div>
+        <div class="pp-ttl">Local Storage</div>
+      </div>
+      <div class="pp-body">
+        <p>SecureMe stores your data securely on your device so only you can access it.</p>
+        <ul>
+          <li>Your secure vault data</li>
+          <li>Your security settings</li>
+          <li>Your backup settings</li>
+        </ul>
+        <p>No other app, company, or person can access this data.</p>
+      </div>
+    </div>
+
+    <div class="pp-card rv rv-d3">
+      <div class="pp-head">
+        <div class="pp-num">04 //</div>
+        <div class="pp-ttl">Backup Files</div>
+      </div>
+      <div class="pp-body">
+        <p>SecureMe allows you to create backup files so you can restore your data later.</p>
+        <ul>
+          <li>Backup files are protected</li>
+          <li>Backup files are stored where you choose</li>
+          <li>Backup files are shared only if you choose to share them</li>
+        </ul>
+        <div class="pp-highlight">You control where your backup goes and who can access it.</div>
+      </div>
+    </div>
+
+    <div class="pp-card rv rv-d4">
+      <div class="pp-head">
+        <div class="pp-num">05 //</div>
+        <div class="pp-ttl">Biometric Data</div>
+      </div>
+      <div class="pp-body">
+        <p>SecureMe can use your fingerprint or phone lock to unlock the app.</p>
+        <p>Your fingerprint or face data is handled by your phone’s system, not by SecureMe. We never see or store your biometric data.</p>
+      </div>
+    </div>
+
+    <div class="pp-card rv rv-d5">
+      <div class="pp-head">
+        <div class="pp-num">06 //</div>
+        <div class="pp-ttl">Third-Party Libraries</div>
+      </div>
+      <div class="pp-body">
+        <p>SecureMe uses some trusted tools to make the app work properly, such as the database, user interface, and app updates.</p>
+        <p>These tools do not collect your personal data from SecureMe.</p>
+      </div>
+    </div>
+
+    <div class="pp-card rv rv-d6">
+      <div class="pp-head">
+        <div class="pp-num">07 //</div>
+        <div class="pp-ttl">Children's Privacy · Changes · Contact</div>
+      </div>
+      <div class="pp-body">
+        <p><strong>Children's Privacy:</strong> SecureMe does not collect data from anyone, including children.</p>
+        <p><strong>Policy Changes:</strong> If this policy changes, the updated version will be published here.</p>
+        <p><strong>Contact:</strong> Aman Joshi · Virtual Look<br/>
+        <a href="https://www.linkedin.com/in/amanajjoshi" style="color:var(--g);text-decoration:none">linkedin.com/in/amanajjoshi</a></p>
+        <div class="pp-highlight">If you have any questions about privacy, you can contact us anytime.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">SECURE<em>ME</em></div>
+      <div class="footer-tagline">YOUR VAULT. NO CLOUD. NO COMPROMISE.</div>
+      <a href="#" class="footer-dl">
+        ↓ DOWNLOAD ON PLAY STORE
+      </a>
+    </div>
+    <div class="footer-links-col">
+      <h4>NAVIGATION</h4>
+      <ul>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#security">Security Architecture</a></li>
+        <li><a href="#privacy">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-links-col">
+      <h4>DEVELOPER</h4>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/amanajjoshi">LinkedIn</a></li>
+        <li><a href="https://github.com/CodingWorld-007">GitHub</a></li>
+        <li><a href="upi://pay?pa=codingworld@sbi&pn=Aman_Joshi&cu=INR">Buy Me a Coffee ☕</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Virtual Look. All rights reserved.</div>
+    <div class="footer-made">Made with <em>❤️</em> in India · SecureMe v1.0</div>
+  </div>
+</footer>
+
+<script>
+/* ── CUSTOM CURSOR ──────────────────────────────────────────────────────── */
+const cur  = document.getElementById('cursor');
+const curR = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*0.12;
+  ry+=(my-ry)*0.12;
+  curR.style.left=rx+'px';
+  curR.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.style.width='20px';cur.style.height='20px';
+    curR.style.width='52px';curR.style.height='52px';
+    curR.style.borderColor='rgba(0,255,136,0.8)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cur.style.width='8px';cur.style.height='8px';
+    curR.style.width='36px';curR.style.height='36px';
+    curR.style.borderColor='rgba(0,255,136,0.4)';
+  });
+});
+
+/* ── PARTICLE FIELD ─────────────────────────────────────────────────────── */
+const pc = document.getElementById('particles');
+const px = pc.getContext('2d');
+let pts=[];
+
+function resizePC(){
+  pc.width=window.innerWidth;
+  pc.height=window.innerHeight;
+}
+resizePC();
+window.addEventListener('resize',resizePC);
+
+for(let i=0;i<70;i++){
+  pts.push({
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+    vx:(Math.random()-0.5)*0.25,
+    vy:(Math.random()-0.5)*0.25,
+    r:Math.random()*1.2+0.3,
+    a:Math.random()*0.4+0.1
+  });
+}
+
+function drawPts(){
+  px.clearRect(0,0,pc.width,pc.height);
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=pc.width;
+    if(p.x>pc.width)p.x=0;
+    if(p.y<0)p.y=pc.height;
+    if(p.y>pc.height)p.y=0;
+    px.beginPath();
+    px.arc(p.x,p.y,p.r,0,Math.PI*2);
+    px.fillStyle=`rgba(0,255,136,${p.a})`;
+    px.fill();
+  });
+  // Draw connections
+  pts.forEach((a,i)=>{
+    pts.slice(i+1).forEach(b=>{
+      const d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<120){
+        px.beginPath();
+        px.moveTo(a.x,a.y);px.lineTo(b.x,b.y);
+        px.strokeStyle=`rgba(0,255,136,${0.04*(1-d/120)})`;
+        px.lineWidth=0.5;px.stroke();
+      }
+    });
+  });
+  requestAnimationFrame(drawPts);
+}
+drawPts();
+
+/* ── NAV SCROLL ─────────────────────────────────────────────────────────── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);
+  // Active link
+  const secs=['how','features','security','privacy'];
+  let cur='';
+  secs.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&window.scrollY>=el.offsetTop-120)cur=id;
+  });
+  document.querySelectorAll('.nav-center a').forEach(a=>{
+    const isActive=a.getAttribute('href')==='#'+cur;
+    a.style.color=isActive?'var(--g)':'';
+  });
+});
+
+/* ── SCROLL REVEAL ──────────────────────────────────────────────────────── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      // stagger children
+      e.target.querySelectorAll('.rv:not(.in)').forEach((c,i)=>{
+        setTimeout(()=>c.classList.add('in'),i*80);
+      });
+    }
+  });
+},{threshold:0.08});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+/* ── COUNTER ANIMATION ──────────────────────────────────────────────────── */
+function animCount(el,target,suffix=''){
+  const isK=target.toString().includes('K');
+  const num=parseFloat(target);
+  let start=0,duration=1600;
+  const step=timestamp=>{
+    if(!start)start=timestamp;
+    const p=Math.min((timestamp-start)/duration,1);
+    const ease=1-Math.pow(1-p,3);
+    const val=num*ease;
+    el.textContent=(val%1===0?Math.floor(val):val.toFixed(0))+(isK?'K':'')+suffix;
+    if(p<1)requestAnimationFrame(step);
+    else el.textContent=target+suffix;
+  };
+  requestAnimationFrame(step);
+}
+const countObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const n=e.target.dataset.n;
+      const s=e.target.dataset.s||'';
+      if(n)animCount(e.target,n,s);
+      countObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.stat-num').forEach(el=>countObs.observe(el));
+</script>
 </body>
 </html>
