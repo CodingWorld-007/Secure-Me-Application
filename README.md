@@ -1,18 +1,37 @@
-# 🔐 SecureMe
+<p align="center">
+  <img src="default_logo.png" width="180">
+</p>
 
+<h1 align="center">SecureMe</h1>
+
+<p align="center">
 A privacy-focused encrypted vault for storing passwords, bank details, crypto wallets, and sensitive credentials securely on Android.
+</p>
 
+<p align="center">
 ![Platform](https://img.shields.io/badge/Platform-Android-green)
 ![Language](https://img.shields.io/badge/Language-Kotlin-blue)
 ![UI](https://img.shields.io/badge/UI-Jetpack%20Compose-purple)
 ![Security](https://img.shields.io/badge/Focus-Security-red)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 ![GitHub stars](https://img.shields.io/github/stars/CodingWorld-007/Secure-Me-Application)
+</p>
+
+<p align="center">
+
+<a href="https://github.com/CodingWorld-007/Secure-Me-Application/releases/latest">
+<img src="https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge">
+</a>
+
+</p>
+
 ---
 
-### Download APK
+# 📥 Download
 
-[Download SecureMe](https://github.com/CodingWorld-007/Secure-Me-Application/releases/latest)
+Download the latest APK from GitHub Releases.
+
+🔗 https://github.com/CodingWorld-007/Secure-Me-Application/releases/latest
 
 ---
 
