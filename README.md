@@ -9,6 +9,7 @@ A privacy-focused encrypted vault for storing passwords, bank details, crypto wa
 </p>
 
 <p align="center">
+  
 ![Platform](https://img.shields.io/badge/Platform-Android-green)
 ![Language](https://img.shields.io/badge/Language-Kotlin-blue)
 ![UI](https://img.shields.io/badge/UI-Jetpack%20Compose-purple)
