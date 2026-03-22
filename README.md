@@ -2,7 +2,7 @@
   <img src="default_logo.png" width="180">
 </p>
 
-<h1 align="center">SecureMe</h1>
+<h1 align="center">Secure Me</h1>
 
 <p align="center">
 A privacy-focused encrypted vault for storing passwords, bank details, crypto wallets, and sensitive credentials securely on Android.
